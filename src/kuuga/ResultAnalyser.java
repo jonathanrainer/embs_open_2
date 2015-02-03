@@ -51,7 +51,7 @@ public class ResultAnalyser extends TypedAtomicActor{
 				latencyUpdate(end_to_end_latency_tracker, id, end_to_end_latency);
 				Latency comms_latency_record = comms_latency_tracker.get(id);
 				Latency end_to_end_latency_record = end_to_end_latency_tracker.get(id);
-				String id_string = "Task ID: " + id;
+				String id_string = "########## Task ID: " + id + " ##########\n";
 				String end_to_end_latency_string = generateOutputString(end_to_end_latency_record, "End To End");
 				String comm_latency_string = generateOutputString(comms_latency_record, "Communication");
 				StringToken out_s = new StringToken(id_string + end_to_end_latency_string + comm_latency_string);
@@ -79,7 +79,7 @@ public class ResultAnalyser extends TypedAtomicActor{
 	{
 		if(latency_store.get(id) == null)
 		{
-			latency_store.put(id, new Latency(new_latency, new_latency, new_latency, id));
+			latency_store.put(id, new Latency(new_latency, new_latency, new_latency, 1));
 		}
 		else
 		{
@@ -92,9 +92,9 @@ public class ResultAnalyser extends TypedAtomicActor{
 	
 	private String generateOutputString(Latency latency_record, String title)
 	{
-		String LatencyString = "##### " + title + " ##### Best Latency: " + latency_record.getBest()
-				+ " Worst Latency: " + latency_record.getWorst() + 
-				" Average Latency: " + latency_record.calculateAverage();
+		String LatencyString = "########## " + title + " ########## \nBest Latency: " + latency_record.getBest()
+				+ "\nWorst Latency: " + latency_record.getWorst() + 
+				"\nAverage Latency: " + latency_record.calculateAverage() + "\n";
 		return LatencyString;
 	}
 
